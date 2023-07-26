@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-#3*shu-=mmnxs5diq@g2a99euo9h$4a+i7eqdf^16k5!q7)y#-
 DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'AlzheimerDetection.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -123,12 +123,16 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 import os
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'my_app', 'additional_static_files'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'my_app', 'additional_static_files'),
+# ]
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# MEDIA_URLS ='/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
