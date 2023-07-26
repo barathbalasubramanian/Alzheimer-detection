@@ -1,0 +1,34 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alzheimer's Disease</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/app.js' %}"></script>
+</head>
+<body>
+    <div class="file-input">
+        <div>
+            <h1>Alzheimer's Disease Detection</h1> 
+        </div>
+        <div class="image-show">
+            {% for i in ref %}
+                <img src="{% static 'image/scan_image.png' %}" alt="">
+                <img src="{% static 'image/save.png' %}" alt="">
+            {% endfor %}
+        </div>
+        <form id="myForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %} 
+            <label class="uploadFile">
+                <span class="filename">Upload X-ray Image</span>
+                <input type="file" class="inputfile form-control" name="fileUpload" >
+            </label>
+            <input type="submit" value="Submit" class="upload-btn" name="file" />
+        </form>
+    </div>
+</body>
+</html>
