@@ -19,6 +19,7 @@
             {% for i in ref %}
                 <img src="{% static 'image/scan_image.png' %}" alt="">
                 <img src="{% static 'image/save.png' %}" alt="">
+                <h1>{{ detect }}</h1>
             {% endfor %}
         </div>
         <form id="myForm" method="post" enctype="multipart/form-data">
