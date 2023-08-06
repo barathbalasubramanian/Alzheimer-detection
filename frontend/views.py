@@ -1,8 +1,10 @@
 # from ultralytics import YOLO
-from PIL import Image
-import cv2
-import io
-import requests , json
+# from PIL import Image
+# import cv2
+# import io
+# import requests , json
+import numpy
+import seaborn
 
 from django.shortcuts import render
 
@@ -21,7 +23,7 @@ def index(request) :
             image = Image.open(io.BytesIO(content))
             image.save('frontend\static\image\scan_image.png')
 
-            url = 'http://localhost:3000/upload'
+            url = 'https://dokcer-api.onrender.com/upload'
 
             image_path = 'frontend\static\image\scan_image.png'  
 
