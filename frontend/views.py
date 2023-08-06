@@ -1,10 +1,9 @@
-# from ultralytics import YOLO
-# from PIL import Image
-# import cv2
-# import io
-# import requests , json
 import numpy
-import seaborn
+import requests , json
+import cv2
+from ultralytics import YOLO
+from PIL import Image
+import io
 
 from django.shortcuts import render
 
@@ -23,32 +22,41 @@ def index(request) :
             image = Image.open(io.BytesIO(content))
             image.save('frontend\static\image\scan_image.png')
 
-            url = 'https://dokcer-api.onrender.com/upload'
+            # url = 'https://dokcer-api.onrender.com/upload'
 
-            image_path = 'frontend\static\image\scan_image.png'  
+            # image_path = 'frontend\static\image\scan_image.png'  
 
-            with open(image_path, 'rb') as image:
-                files = {'fileUpload': image}
-                response = requests.post(url, files=files)
-                print(response.status_code)
-                print(response.headers)
+            model = YOLO(r'models\weights.pt')
+            im2 = cv2.imread(r"frontend\static\image\scan_image.png")
+            results = model.predict(source=im2)
+            print(results)
+            # print(results[0],'------')
+            pre = results[0].boxes.cls.tolist()
+            # print(classes[int(pre[0])])
+            cv2.imwrite('frontend\static\image\save.png',results[0].plot())
 
-                if response.status_code == 200:
-                    content_disposition = response.headers.get('Content-Disposition')
-                    if content_disposition:
-                        filename = content_disposition
-                        print('Filename: ', filename)
+            # with open(image_path, 'rb') as image:
+            #     files = {'fileUpload': image}
+            #     response = requests.post(url, files=files)
+            #     print(response.status_code)
+            #     print(response.headers)
 
-                    with open('frontend\static\image\save1.png', 'wb') as f:
-                        f.write(response.content)
-                    print("File downloaded successfully")
-                else:
-                    print("Failed to download the file")
+            #     if response.status_code == 200:
+            #         content_disposition = response.headers.get('Content-Disposition')
+            #         if content_disposition:
+            #             filename = content_disposition
+            #             print('Filename: ', filename)
+
+            #         with open('frontend\static\image\save1.png', 'wb') as f:
+            #             f.write(response.content)
+            #         print("File downloaded successfully")
+            #     else:
+            #         print("Failed to download the file")
 
             img = [0]
             context = {
                 'ref' : img,
-                'detect': filename
+                # 'detect': filename
             }
             return render(request, 'index.html' , context)
 
